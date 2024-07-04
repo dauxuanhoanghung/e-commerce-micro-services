@@ -4,6 +4,8 @@ services:
   # Databases
   mysql:
     image: mysql:latest
+    container_name: mysql
+    hostname: mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
     ports:
@@ -12,7 +14,9 @@ services:
       - mysql-data:/var/lib/mysql
 
   postgres:
-    image: postgres:15
+    image: postgres
+    container_name: postgresql
+    hostname: postgresql
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -21,8 +25,10 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data
 
-  mongo:
+  mongodb:
     image: mongo
+    container_name: mongodb
+    hostname: mongodb
     ports:
       - "27017:27017"
     restart: always
