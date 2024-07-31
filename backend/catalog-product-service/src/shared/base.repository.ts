@@ -1,7 +1,7 @@
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { Document, Model } from 'mongoose';
 
-export abstract class BaseRepository<T extends Document> {
+export abstract class BaseRepository<T extends Document, ID = string> {
   protected readonly eventPrefix: string;
   private static AFTER_CREATED = 'created';
   private static AFTER_UPDATED = 'updated';
@@ -11,7 +11,7 @@ export abstract class BaseRepository<T extends Document> {
     private readonly emitter: EventEmitter2,
     eventPrefix?: string,
   ) {
-    this.eventPrefix = eventPrefix || model.modelName;
+    this.eventPrefix = eventPrefix || model.modelName.toLowerCase();
   }
 
   private emitEvent(action: string, payload: any) {
@@ -29,11 +29,11 @@ export abstract class BaseRepository<T extends Document> {
     return this.model.find().exec();
   }
 
-  async findById(id: string): Promise<T | null> {
+  async findById(id: ID): Promise<T | null> {
     return this.model.findById(id).exec();
   }
 
-  async update(id: string, data: any): Promise<T | null> {
+  async update(id: ID, data: any): Promise<T | null> {
     const model = await this.model.findById(id).exec();
     if (!model) {
       return null;
@@ -44,7 +44,7 @@ export abstract class BaseRepository<T extends Document> {
     return model;
   }
 
-  async delete(obj: string | T): Promise<T | null> {
+  async delete(obj: ID | T): Promise<T | null> {
     let id = obj;
     if (typeof obj !== 'string') {
       id = obj['id'];

@@ -11,9 +11,10 @@ async function bootstrap() {
   });
   const config: ConfigService = app.get<ConfigService>(ConfigService);
   /**
-   * Set global prefix for all routes '/api'
+   * Set global prefix for all routes '/catalog/api'
    */
-  app.setGlobalPrefix('api');
+  const contextPath = config.get<string>('CONTEXT_PATH');
+  app.setGlobalPrefix(contextPath + '/api');
   /**
    * Add versioning type to URI for all routes '/v1'
    */
@@ -21,6 +22,6 @@ async function bootstrap() {
     type: VersioningType.URI,
     defaultVersion: config.get('VERSION') || '1',
   });
-  await app.listen(config.get('PORT'));
+  await app.listen(config.get<number>('PORT'));
 }
 bootstrap();
