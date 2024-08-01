@@ -8,6 +8,11 @@ spring:
     user:
       name: eureka
       password: Admin@123
+  shell:
+    interactive:
+      enabled: true
+    script:
+      enabled: true
 
 eureka:
   client:
