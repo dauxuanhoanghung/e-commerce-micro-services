@@ -1,4 +1,4 @@
-package com.ecommerce.eureka_server;
+package com.ecommerce.eureka;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
