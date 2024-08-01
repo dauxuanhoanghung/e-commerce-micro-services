@@ -6,9 +6,9 @@ import { WinstonModule } from 'nest-winston';
 import * as winston from 'winston';
 
 import configuration from './config/configuration';
-import { EurekaClientModule } from './config/eureka/client.module';
 import { AttributeModule } from './modules/attribute/attribute.module';
 import { CategoryModule } from './modules/category/category.module';
+import { EurekaClientModule } from './modules/eureka/client.module';
 import { ProductModule } from './modules/product/product.module';
 import { TagModule } from './modules/tag/tag.module';
 
@@ -26,11 +26,11 @@ import { TagModule } from './modules/tag/tag.module';
       connectionName: 'catalog-product',
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: async (configService: ConfigService) => ({
-        uri: configService.get<string>('DATABASE_URI'),
-        dbName: configService.get<string>('DATABASE_NAME'),
-        user: configService.get<string>('DATABASE_USER'),
-        pass: configService.get<string>('DATABASE_PASSWORD'),
+      useFactory: async (config: ConfigService) => ({
+        uri: config.get<string>('DATABASE_URI'),
+        dbName: config.get<string>('DATABASE_NAME'),
+        user: config.get<string>('DATABASE_USER'),
+        pass: config.get<string>('DATABASE_PASSWORD'),
         retryAttempts: 5,
         retryDelay: 1000,
       }),

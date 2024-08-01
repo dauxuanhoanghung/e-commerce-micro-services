@@ -13,15 +13,15 @@ async function bootstrap() {
   /**
    * Set global prefix for all routes '/catalog/api'
    */
-  const contextPath = config.get<string>('CONTEXT_PATH');
+  const contextPath = config.get<string>('APP_CONTEXT_PATH');
   app.setGlobalPrefix(contextPath + '/api');
   /**
    * Add versioning type to URI for all routes '/v1'
    */
   app.enableVersioning({
     type: VersioningType.URI,
-    defaultVersion: config.get('VERSION') || '1',
+    defaultVersion: config.get<string>('VERSION') || '1',
   });
-  await app.listen(config.get<number>('PORT'));
+  await app.listen(config.get<number>('APP_PORT'));
 }
 bootstrap();

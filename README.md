@@ -31,7 +31,9 @@ This's a e-commerce project. Try to implement micro-service with multi language
 
 ```bash
 echo '#!/bin/sh' > .git/hooks/pre-commit
-echo 'cd web-app && npm run format' >> .git/hooks/pre-commit
+echo 'root_dir=$(pwd)' >> .git/hooks/pre-commit
+echo 'cd web-app && npm run format && cd "$root_dir"' >> .git/hooks/pre-commit
+echo 'cd backend/catalog-product-service && npm run format && cd "$root_dir"' >> .git/hooks/pre-commit
 ```
 
 1. Before developing, run commands to initialize database

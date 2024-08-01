@@ -10,8 +10,8 @@ interface ApplicationConfig {
 }
 
 export default (): ApplicationConfig => ({
-  port: parseInt(process.env.PORT, 10) || 3001,
-  version: process.env.VERSION || 1,
+  port: parseInt(process.env.APP_PORT, 10) || 3001,
+  version: process.env.APP_VERSION || 1,
   database: {
     host: process.env.DATABASE_HOST,
     port: parseInt(process.env.DATABASE_PORT, 10) || 27012,
