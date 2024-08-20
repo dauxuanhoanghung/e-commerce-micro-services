@@ -12,9 +12,12 @@
     "lint-staged": "lint-staged"
   },
   "lint-staged": {
-    "*.ts": [
-      "npm run format",
-      "git add ."
+    "*.{js,jsx,ts,tsx}": [
+      "npm run lint",
+      "npm run format"
+    ],
+    "*.{css,scss,less}": [
+      "prettier --write"
     ]
   },
   "dependencies": {
