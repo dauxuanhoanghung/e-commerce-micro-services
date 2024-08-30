@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE suppressions PUBLIC
+        "-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
+        "https://checkstyle.org/dtds/suppressions_1_2.dtd">
+<suppressions>
+    <!-- Suppress visibility-related checks for Lombok's @Getter and @Setter -->
+    <suppress files=".java" checks="VisibilityModifier"
+              message="Visibility check skipped for Lombok @Getter."/>
+    <suppress files=".java" checks="VisibilityModifier"
+              message="Visibility check skipped for Lombok @Setter."/>
+
+    <!-- Suppress check for classes with Lombok's @FieldDefaults -->
+    <suppress files=".*" checks="VisibilityModifier"
+              message="Visibility check skipped for Lombok @FieldDefaults."/>
+
+    <!-- Example: Suppress Javadoc check for classes that use Lombok's @Data -->
+    <suppress files=".*" checks="JavadocType"
+              message="Javadoc check skipped for Lombok @Data classes."/>
+</suppressions>
