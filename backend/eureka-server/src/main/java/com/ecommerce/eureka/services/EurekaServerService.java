@@ -1,24 +1,33 @@
 package com.ecommerce.eureka.services;
 
+import com.netflix.appinfo.InstanceInfo;
+import com.netflix.discovery.EurekaClient;
+import com.netflix.discovery.shared.Application;
 import com.netflix.eureka.EurekaServerContextHolder;
 import com.netflix.eureka.registry.PeerAwareInstanceRegistry;
 import org.springframework.stereotype.Service;
-import com.netflix.discovery.EurekaClient;
-import com.netflix.discovery.shared.Applications;
-import com.netflix.discovery.shared.Application;
-import com.netflix.appinfo.InstanceInfo;
 
 import java.util.List;
 
+/**
+ * This class is responsible for interacting with Eureka.
+ */
 @Service
 public class EurekaServerService {
 
     private final EurekaClient eurekaClient;
 
-    public EurekaServerService(EurekaClient eurekaClient) {
+    /**
+     * Constructor to create an instance of EurekaServerService.
+     * @param eurekaClient
+     */
+    public EurekaServerService(final EurekaClient eurekaClient) {
         this.eurekaClient = eurekaClient;
     }
 
+    /**
+     * List all registered clients.
+     */
     public void listRegisteredClients() {
         PeerAwareInstanceRegistry registry = EurekaServerContextHolder.getInstance().getServerContext().getRegistry();
 
@@ -36,9 +45,12 @@ public class EurekaServerService {
         }
     }
 
+    /**
+     * Check the status of the Eureka Server.
+     * @return
+     */
     public String checkStatus() {
         return "Eureka Server is up and running!";
     }
-
 
 }
