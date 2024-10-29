@@ -14,4 +14,6 @@ public interface JwtProviderInterface {
     String generateToken(Map<String, Object> userDetails);
 
     Boolean validateToken(String token, Map<String, Object> userDetails);
+
+    Boolean validateToken(String token);
 }

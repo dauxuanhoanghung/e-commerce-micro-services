@@ -14,10 +14,20 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+/**
+ * JwtProvider class that implements {@link JwtProviderInterface}
+ */
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class JwtProvider implements JwtProviderInterface {
 
+    /**
+     * The secret key for signing the JWT
+     */
     String secret;
+
+    /**
+     * The expiration time in milliseconds
+     */
     Long expirationMs;
 
     /**
@@ -51,6 +61,13 @@ public class JwtProvider implements JwtProviderInterface {
         return extractClaim(token, Claims::getExpiration);
     }
 
+    /**
+     * The function to extract the claim from the token
+     *
+     * @param token The JWT token
+     * @param claimsResolver The function to resolve the claim
+     * @return {@link T}
+     */
     private <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
@@ -69,6 +86,11 @@ public class JwtProvider implements JwtProviderInterface {
         return extractExpiration(token).before(new Date());
     }
 
+    /**
+     * Generate the JWT token
+     * @param userDetails The user details to be added to the token. Can be roles, username, etc.
+     * @return {@link String} The JWT token
+     */
     @Override
     public String generateToken(Map<String, Object> userDetails) {
         if (this.expirationMs == null) {
@@ -81,6 +103,13 @@ public class JwtProvider implements JwtProviderInterface {
         return this.createToken(claims, userDetails.get("username").toString());
     }
 
+    /**
+     * Create the JWT token
+     *
+     * @param claims The claims to be added to the token. Can be roles, username, etc.
+     * @param subject The subject of the token. Usually the username.
+     * @return {@link String} The JWT token
+     */
     private String createToken(Map<String, Object> claims, String subject) {
         if (this.expirationMs == null) {
             throw new IllegalStateException("Expiration time is not set");
@@ -95,11 +124,31 @@ public class JwtProvider implements JwtProviderInterface {
                 .compact();
     }
 
+    /**
+     * Validate the token with additional user details
+     * <p>
+     * The token is valid if the username in the token matches the username in the user details by checking with database.
+     *
+     * @param token - the JWT token
+     * @param userDetails - the user details
+     * @return {@link Boolean}
+     */
     @Override
     public Boolean validateToken(String token, Map<String, Object> userDetails) {
         final String tokenUsername = this.getUsernameFromToken(token);
         final String username = userDetails.get("username").toString();
         return (tokenUsername.equals(username) && !isTokenExpired(token));
+    }
+
+    /**
+     * Validate the token without any additional user details
+     *
+     * @param token the JWT token
+     * @return {@link Boolean}
+     */
+    @Override
+    public Boolean validateToken(String token) {
+        return this.validateToken(token, new HashMap<>());
     }
 
     /**
