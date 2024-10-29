@@ -5,7 +5,7 @@
     <properties>
         <jjwt.version>0.12.6</jjwt.version>
     </properties>
-    <groupId>com.commerce</groupId>
+    <groupId>com.ecommerce</groupId>
     <artifactId>core</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>core</name>
