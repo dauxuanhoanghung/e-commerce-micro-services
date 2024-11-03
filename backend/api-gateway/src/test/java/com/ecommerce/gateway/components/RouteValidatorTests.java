@@ -12,7 +12,7 @@ import org.springframework.mock.http.server.reactive.MockServerHttpRequest;
 class RouteValidatorTests {
 
     @Autowired
-    private RouteValidator routeValidator;
+    private RouteAuthValidator routeValidator;
 
     @Test
     void shouldIdentifySecuredPath() {

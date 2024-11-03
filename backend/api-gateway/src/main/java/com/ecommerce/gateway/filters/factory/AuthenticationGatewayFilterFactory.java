@@ -24,12 +24,10 @@ import java.util.List;
 @Component
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AuthenticationGatewayFilterFactory extends AbstractGatewayFilterFactory<Config> {
-
+    static final String BEAR_TOKEN_TYPE = "Bearer ";
+    
     final JwtProviderInterface jwtProvider;
     final ObjectMapper objectMapper;
-
-    private static final String BEAR_TOKEN_TYPE = "Bearer ";
-
 
     public AuthenticationGatewayFilterFactory(
             JwtProviderInterface jwtProvider,
@@ -40,10 +38,17 @@ public class AuthenticationGatewayFilterFactory extends AbstractGatewayFilterFac
         this.objectMapper = objectMapper;
     }
 
+    /**
+     * Apply the filter
+     *
+     * @param config
+     * @return
+     */
     @Override
     public GatewayFilter apply(Config config) {
         return (exchange, chain) -> {
             String path = exchange.getRequest().getURI().getPath();
+            String method = exchange.getRequest().getMethod().toString();
 
             // Check if the request is for an excluded path
             if (config.getExcludedPaths() != null && config.getExcludedPaths().contains(path)) {
@@ -75,10 +80,10 @@ public class AuthenticationGatewayFilterFactory extends AbstractGatewayFilterFac
      * 4. Set the response headers <br>
      * 5. Write JSON to the response body <br>
      *
-     * @param exchange
-     * @param message
-     * @param status
-     * @return
+     * @param exchange The server web exchange
+     * @param message  The error message
+     * @param status   The HTTP status
+     * @return Mono<Void>
      */
     private Mono<Void> onError(ServerWebExchange exchange, String message, HttpStatus status) {
         exchange.getResponse().setStatusCode(status);
@@ -125,8 +130,19 @@ public class AuthenticationGatewayFilterFactory extends AbstractGatewayFilterFac
     @Setter
     public static class Config {
 
+        /**
+         * The type of authentication
+         */
         private String authType;
+
+        /**
+         * The list of excluded paths
+         */
         private List<String> excludedPaths;
+
+        /**
+         * Require HTTPS
+         */
         private boolean requireHttps;
     }
 

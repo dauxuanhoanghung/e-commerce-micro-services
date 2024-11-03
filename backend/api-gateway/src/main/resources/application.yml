@@ -1,11 +1,16 @@
 spring:
   application:
     name: gateway-service
+  config:
+    import: "classpath:route-auth.yml"
   cloud:
     gateway:
       discovery:
         locator:
           enabled: true
+  messages:
+    basename: messages/messages
+    encoding: UTF-8
 
 server:
   port: 8080

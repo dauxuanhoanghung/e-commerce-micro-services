@@ -1,6 +1,6 @@
 package com.ecommerce.gateway.filters;
 
-import com.ecommerce.gateway.components.RouteValidator;
+import com.ecommerce.gateway.components.RouteAuthValidator;
 import com.ecommerce.jwt.JwtProviderInterface;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +24,7 @@ import reactor.core.publisher.Mono;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AuthenticationFilter implements GatewayFilter {
 
-    RouteValidator routeValidator;
+    RouteAuthValidator routeValidator;
     JwtProviderInterface jwtProvider;
 
     @Value("${app.authentication.enabled}")

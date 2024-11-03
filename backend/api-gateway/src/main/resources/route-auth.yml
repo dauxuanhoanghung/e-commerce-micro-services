@@ -1,0 +1,9 @@
+app:
+  route-auth:
+    rules:
+      - path: "/user"
+        methods:
+          - DELETE
+          - PUT
+      - path: "/shipping"
+      - path: "/orders"
