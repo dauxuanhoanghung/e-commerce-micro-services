@@ -11,6 +11,8 @@ spring:
   messages:
     basename: messages/messages
     encoding: UTF-8
+  profiles:
+    active: default
 
 server:
   port: 8080
@@ -33,3 +35,9 @@ app:
     enabled: true
   jwt:
     secret: 1234567890abcdefghijklmnopqrstuvwxyz
+
+logging:
+  file:
+    name: logs/gateway-errors.log
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"

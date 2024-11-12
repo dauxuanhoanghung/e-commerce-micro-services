@@ -1,0 +1,21 @@
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+  messages:
+    basename: messages/messages
+    encoding: UTF-8
+  profiles:
+    active: default
+
+server:
+  port: 8080
+
+app:
+  logging:
+    filter:
+      enabled: true
+  authentication:
+    enabled: true

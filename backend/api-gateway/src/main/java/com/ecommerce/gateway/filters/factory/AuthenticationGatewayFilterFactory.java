@@ -10,6 +10,7 @@ import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
+import org.springframework.context.MessageSource;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -25,17 +26,20 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AuthenticationGatewayFilterFactory extends AbstractGatewayFilterFactory<Config> {
     static final String BEAR_TOKEN_TYPE = "Bearer ";
-    
+
     final JwtProviderInterface jwtProvider;
     final ObjectMapper objectMapper;
+    final MessageSource messageSource;
 
     public AuthenticationGatewayFilterFactory(
             JwtProviderInterface jwtProvider,
-            ObjectMapper objectMapper
+            ObjectMapper objectMapper,
+            MessageSource messageSource
     ) {
         super(Config.class);
         this.jwtProvider = jwtProvider;
         this.objectMapper = objectMapper;
+        this.messageSource = messageSource;
     }
 
     /**
