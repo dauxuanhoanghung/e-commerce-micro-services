@@ -1,0 +1,14 @@
+facebook:
+  label: Facebook
+  permalink: /facebook
+  description: Facebook tag description
+
+micro services:
+  label: Micro Services
+  permalink: /micro-services
+  description: Micro Services tag description
+
+ecommerce platform:
+  label: Ecommerce Platform
+  permalink: /ecommerce-platform
+  description: Ecommerce Platform tag description
